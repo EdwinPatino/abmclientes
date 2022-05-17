@@ -3,6 +3,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+//pregunta si el archivo existe
 if(file_exists("archivo.txt")){
     //si el archivo existe, cargo los clientes en la variable aClientes
     $strJson = file_get_contents("archivo.txt");
@@ -12,23 +13,35 @@ if(file_exists("archivo.txt")){
     $aClientes = array();
 }
 
+//pregunta por el id
 if(isset($_GET["id"])){
     $id = $_GET["id"];
 }else{
     $id ="";
 }
+//para eliminar un usuario por el id
+if(isset($_GET["do"]) && $_GET["do"] == "eliminar"){
+    unset($aClientes[$id]);
 
+    //convertir aClientes en json
+    $strJson = json_encode($aClientes);
+    //Almacenar el json en el archivo
+    file_put_contents("archivo.txt", $strJson);
+    header("Location: index.php");
+}
 
 if($_POST){
     $dni = $_POST["txtDni"];
     $nombre = $_POST["txtNombre"];
     $telefono = $_POST["txtTelefono"];
     $correo = $_POST["txtCorreo"];
+    $nombreImagen = "";
 
     $aClientes[] = array("dni" => $dni,
                         "nombre" => $nombre,
                         "telefono" => $telefono,
-                        "correo" => $correo
+                        "correo" => $correo,
+                        "imagen" => $nombreImagen
     );
 
     //convertir el array de clientes en json
@@ -103,13 +116,13 @@ if($_POST){
                     <tbody>
                         <?php foreach($aClientes as $pos => $cliente): ?>
                             <tr>
-                                <td></td>
+                                <td><img src="images/"<?php echo $cliente["imagen"]; ?> class="img-thumail" alt=""></td>
                                 <td><?php echo $cliente["dni"]; ?></td>
                                 <td><?php echo $cliente["nombre"]; ?></td>
                                 <td><?php echo $cliente["correo"]; ?></td>
                                 <td>
                                 <a href="?id=<?php echo $pos; ?>"><i class="fa-solid fa-pen-to-square"></i></a>
-                                <i class="fa-solid fa-trash-can"></i>
+                                <a href="?id=<?php echo $pos ; ?>&do=eliminar"><i class="fa-solid fa-trash-can"></i></a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
