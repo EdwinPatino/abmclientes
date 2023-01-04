@@ -1,1 +1,1 @@
-[{"dni":"1023","nombre":"edwin","telefono":"20790","correo":"aaa@correo","imagen":"20220518010540161592.jpg"},{"dni":"1023","nombre":"edsw","telefono":"1234","correo":"qq@correo","imagen":""},{"dni":"1023916716","nombre":"Edwin","telefono":"2079057","correo":"aaa@correo.com","imagen":""}]
+[{"dni":"1023","nombre":"edwin","telefono":"20790","correo":"aaa@correo","imagen":"20220518010540161592.jpg"},{"dni":"1023","nombre":"edsw","telefono":"1234","correo":"qq@correo","imagen":""}]
